@@ -1,10 +1,13 @@
 import { FC, useState } from "react";
 import Day from "./day";
-import { useAppSelector } from "../../store/hooks";
+import { IDailyWeater } from "../../services/weather-service";
 
-const Week: FC = () => {
-  const fullWeather = useAppSelector(state => state.weather.fullWeather)
-  const daily = fullWeather && fullWeather.daily.slice(0, 7);
+interface IWeekProps {
+  dailyWeater: IDailyWeater[];
+}
+const Week: FC<IWeekProps> = ({dailyWeater}) => {
+  const daily = dailyWeater.slice(0, 7);
+
   const [show, setShow] = useState<boolean>(true)
   return (
     <div className="week">

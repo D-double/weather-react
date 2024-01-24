@@ -1,32 +1,32 @@
 import { FC } from "react";
 import Current from "../current";
-import { useAppSelector } from "../../store/hooks";
 import { images } from "../../assets/image";
 import Week from "../week";
+import { useWeather } from "../../hooks/useWeather";
 
 const Main: FC = ()=>{
-  const fullWeather = useAppSelector(state => state.weather.fullWeather)
-  const loading = useAppSelector(state => state.weather.loading)
-  const error = useAppSelector(state => state.weather.error)
-  if (loading) {
+  const {isLoading, isError, error, data} = useWeather();
+  if (isLoading) {
     return (
       <div className="loading">
         <img src={images.loading} alt="" className="loading__img" />
       </div>
     )
   }
-  if (error) {
+  else if (isError) {
     return (
       <div className="error">
-        <h1>{error}</h1>
+        <h1>{error.message}</h1>
       </div>
     )
   }
-  return (
-    <>
-      {fullWeather && <Current getFullWeather={fullWeather} />}
-      <Week/>
-    </>
-  )
+  if(data){
+    return (
+      <>
+        <Current current={data.current} localName={data.name}/>
+        <Week dailyWeater={data.daily}/>
+      </>
+    )
+  }
 }
 export default Main;

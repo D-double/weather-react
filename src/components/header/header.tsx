@@ -1,16 +1,16 @@
 import { FC, useRef } from "react";
 import { images } from "../../assets/image";
+import { useAppDispatch } from "../../store/hooks";
+import { dataCity } from "../../store/weather";
 
-interface IHeaderProps {
-  setCity: (val: string) => void
-}
 
-const Header: FC<IHeaderProps> = ({ setCity }) => {
+const Header: FC = () => {
+  const dispatch = useAppDispatch()
   const inputRef = useRef<HTMLInputElement>(null)
   const setCityListener = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const text = inputRef.current?.value;
     if (e.key == 'Enter' && text) {
-      setCity(text)
+      dispatch(dataCity(text))
       inputRef.current.value = ''
     }
   }

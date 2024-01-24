@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FC } from "react";
-import { IGetWeather } from "../../services/weather-service";
 import { images, icons } from '../../assets/image';
 import unix, {TimeType} from "../../utils/timestamp";
+import { ICurrentWeather } from "../../services/weather-service";
 
 function windName(deg: number): string {
   let name = '';
@@ -22,11 +22,10 @@ function windName(deg: number): string {
 }
 
 interface ICurrentProps {
-  getFullWeather: IGetWeather
+  current: ICurrentWeather,
+  localName: string
 }
-const Current: FC<ICurrentProps> = (props) => {
-  const { getFullWeather } = props;
-  const {current} = getFullWeather;
+const Current: FC<ICurrentProps> = ({current, localName}) => {
   const windDeg = windName(current.wind_deg)
   const icon = parseInt(current.weather[0].icon);
   //@ts-expect-error
@@ -37,7 +36,7 @@ const Current: FC<ICurrentProps> = (props) => {
         <p className="current__deg">{Math.round(current.temp)}°</p>
         <p className="current__day">Сегодня</p>
         <p className="current__time">Время: {unix(current.dt, TimeType.hours)}:{unix(current.dt, TimeType.minutes)}</p>
-        <p className="current__city">Город: {getFullWeather.name}</p>
+        <p className="current__city">Город: {localName}</p>
         <img src={iconImg} alt="" className="current__img" />
       </div>
       <div className="current__content">
