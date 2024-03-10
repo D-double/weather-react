@@ -53,7 +53,7 @@ class WeatherService {
   async getWeather(city: string = 'Tashkent'): Promise<IGetWeather>{
     try {
       //https://www.dhiwise.com/post/exploring-the-possibilities-of-axios-with-typescript
-      const response: AxiosResponse = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${this.apiKey}`);
+      const response: AxiosResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${this.apiKey}`);
       if (response.status != 200) {
        throw new Error(response.statusText);
       }
