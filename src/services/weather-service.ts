@@ -65,7 +65,7 @@ class WeatherService {
        throw new Error(responseWeather.statusText);
       }
       const weather: IFullWeather = responseWeather.data;
-      console.log(weather);
+      // console.log(weather);
       return { ...weather, name: local_names.ru }
     } catch (error) {
       throw error;

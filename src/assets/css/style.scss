@@ -21,6 +21,11 @@ ul {
   list-style: none;
 }
 
+body.active {
+  --color: #fff;
+  --body: #000;
+}
+
 body {
   background: var(--body);
   color: var(--color);
@@ -175,7 +180,7 @@ body {
     font-size: 18px;
     padding: 6px 20px;
     background: transparent;
-    color: #000;
+    color: var(--color);
     transition: 0.5s;
     
     &:hover, &.active {
